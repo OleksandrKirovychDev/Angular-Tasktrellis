@@ -33,7 +33,7 @@ jobs:
         working-directory: tasktrellis
 
       - name: Run the tests and generate coverage report
-        run: npm test -- --coverage
+        run: npm run test --no-watch --code-coverage
         working-directory: tasktrellis
 
       - name: Upload coverage to Codecov
