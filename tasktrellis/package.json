@@ -9,11 +9,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "predeploy": "ng build",
-    "deploy": "gh-pages -d build",
+    "build": "ng build",
+    "lint": "ng lint",
     "watch": "ng build --watch --configuration development",
-    "test": "jest",
-    "lint": "ng lint"
+    "test": "jest"
   },
   "private": true,
   "dependencies": {
