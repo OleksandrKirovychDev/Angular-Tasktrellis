@@ -32,8 +32,12 @@ jobs:
         run: npm install
         working-directory: tasktrellis
 
+      - name: Run ESLint
+        run: npm run lint
+        working-directory: tasktrellis
+
       - name: Run the tests and generate coverage report
-        run: npm run test --no-watch --code-coverage --no-watch --no-progress --browsers=ChromeHeadless
+        run: npm run test
         working-directory: tasktrellis
 
       - name: Upload coverage to Codecov

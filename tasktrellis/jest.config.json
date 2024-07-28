@@ -1,0 +1,14 @@
+{
+  "verbose": true,
+  "preset": "jest-preset-angular",
+  "setupFilesAfterEnv": [
+    "<rootDir>/setup-jest.ts"
+  ],
+  "collectCoverage": true,
+  "coverageThreshold": {
+    "global": {
+      "lines": 75,
+      "branches": 75
+    }
+  }
+}
