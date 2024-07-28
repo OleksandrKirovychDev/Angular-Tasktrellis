@@ -46,10 +46,6 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           coverage-reports: tasktrellis/coverage/lcov.info
 
-      - name: Build
-        run: npm run build
-        working-directory: tasktrellis
-
       - name: Deploy
         run: |
           git config --global user.name $user_name
