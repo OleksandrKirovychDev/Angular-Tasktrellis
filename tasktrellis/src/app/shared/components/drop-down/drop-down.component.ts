@@ -2,34 +2,41 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  inject,
+  Input,
   Output,
-  ViewChild,
+  WritableSignal,
 } from '@angular/core';
-import { Overlay, OverlayModule } from '@angular/cdk/overlay';
-import { CdkPortal, PortalModule } from '@angular/cdk/portal';
+import {
+  CdkOverlayOrigin,
+  FlexibleConnectedPositionStrategyOrigin,
+  OverlayModule,
+} from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-drop-down',
   standalone: true,
-  imports: [OverlayModule, PortalModule],
+  imports: [OverlayModule],
   template: `
-    <ng-template cdkPortal>
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="trigger"
+      [cdkConnectedOverlayOpen]="isDropDownOpen()"
+      (overlayOutsideClick)="clickOutside.emit()"
+      [cdkConnectedOverlayOffsetY]="offsetY"
+    >
       <ng-content></ng-content>
     </ng-template>
   `,
-  styleUrl: './drop-down.component.scss',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropDownComponent {
-  @Output() openModalOutput = new EventEmitter<void>();
+  @Output() clickOutside = new EventEmitter<void>();
 
-  @ViewChild(CdkPortal) portal!: CdkPortal;
+  @Input({ required: true }) trigger!:
+    | CdkOverlayOrigin
+    | FlexibleConnectedPositionStrategyOrigin;
+  @Input({ required: true }) isDropDownOpen!: WritableSignal<boolean>;
 
-  private overlay = inject(Overlay);
-
-  public openModal() {
-    const overlayRef = this.overlay.create();
-    overlayRef.attach(this.portal);
-  }
+  @Input() offsetY = 5;
 }

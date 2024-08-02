@@ -4,8 +4,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'app-project-list-dropdown',
   standalone: true,
   imports: [],
-  templateUrl: './project-list-dropdown.component.html',
-  styleUrl: './project-list-dropdown.component.scss',
+  template: `
+    <div class="w-full h-80 bg-slate-800 text-slate-300 rounded-md p-5">
+      project-list-dropdown works!
+    </div>
+  `,
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectListDropdownComponent {}
