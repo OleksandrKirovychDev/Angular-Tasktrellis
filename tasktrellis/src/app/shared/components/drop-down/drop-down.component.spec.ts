@@ -9,7 +9,9 @@ describe('MenuComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DropDownComponent],
-    }).compileComponents();
+    })
+      .overrideTemplate(DropDownComponent, '')
+      .compileComponents();
 
     fixture = TestBed.createComponent(DropDownComponent);
     component = fixture.componentInstance;
