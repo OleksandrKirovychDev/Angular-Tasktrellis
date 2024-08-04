@@ -1,0 +1,23 @@
+{
+  "name": "tasktrellis-backend",
+  "author": "Oleksandr Kirovych",
+  "version": "1.0.0",
+  "description": "Backend application for Tasktrellis",
+  "license": "MIT",
+  "homepage": "https://github.com/OleksandrKirovychDev/Angular-Tasktrellis#readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "npx nodemon"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.1.0",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
