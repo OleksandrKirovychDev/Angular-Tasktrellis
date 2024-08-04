@@ -8,12 +8,10 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    children: [
-      {
-        path: 'boards',
-        loadChildren: () =>
-          import('./board/board.routes').then((r) => r.boardRoutes),
-      },
-    ],
+  },
+  {
+    path: 'boards',
+    loadChildren: () =>
+      import('./board/board.routes').then((r) => r.boardRoutes),
   },
 ];
