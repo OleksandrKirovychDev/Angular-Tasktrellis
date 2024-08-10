@@ -1,8 +1,11 @@
+import 'reflect-metadata';
 import express from 'express';
 import bodyParser from 'body-parser';
 import 'dotenv/config';
+import { AppDataSource } from './database/data-source';
 
-import { DBManager } from './DB/Client';
+// routes import
+import { userRouter } from './routes/user.routes';
 
 const app = express();
 const port = process.env.PORT || 8888;
@@ -14,11 +17,13 @@ app.get('/', async (req, res) => {
   res.send('Hello World!');
 });
 
-app.listen(port, async () => {
-  const { client } = await DBManager();
+AppDataSource.initialize()
+  .then(async () => {
+    app.listen(port, () => {
+      console.log('Server is running on http://localhost:' + port);
+    });
+    console.log('Data Source has been initialized!');
+  })
+  .catch((error) => console.log(error));
 
-  await client
-    .connect()
-    .then(() => console.log('Connected to PostgreSQL'))
-    .catch((err) => console.log(err));
-});
+app.use('/user', userRouter);
