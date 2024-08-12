@@ -13,7 +13,8 @@
     "typeorm:migrate": "npx typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts",
     "typeorm:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/database/data-source.ts",
     "typeorm:drop": "npx typeorm-ts-node-commonjs schema:drop -d src/database/data-source.ts",
-    "dev": "npm run typeorm:migrate & npx nodemon"
+    "dev": "npx nodemon",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

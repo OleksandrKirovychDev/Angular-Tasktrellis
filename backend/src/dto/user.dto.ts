@@ -4,3 +4,10 @@ export class UserResponce {
   role!: string;
   id!: string;
 }
+
+export class UserRequest {
+  name!: string;
+  email!: string;
+  role!: string;
+  password!: string;
+}
