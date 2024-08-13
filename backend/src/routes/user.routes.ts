@@ -4,6 +4,10 @@ import { errorHandler } from '../middlware/error.middleware';
 
 const Router = express.Router();
 
-Router.post('/signup', errorHandler, UserController.signup);
+Router.post('/signup', errorHandler, UserController.signup).post(
+  '/signin',
+  errorHandler,
+  UserController.signin
+);
 
 export { Router as userRouter };

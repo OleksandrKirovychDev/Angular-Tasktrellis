@@ -8,6 +8,6 @@ export class UserResponce {
 export class UserRequest {
   name!: string;
   email!: string;
-  role!: string;
+  role?: string;
   password!: string;
 }

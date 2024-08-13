@@ -3,6 +3,7 @@ import { UserResponce, UserRequest } from '../dto/user.dto';
 import { AppDataSource } from '../database/data-source';
 import { User } from '../entity/user.entity';
 import { encrypt } from '../utils/enryption.util';
+import { validate } from 'class-validator';
 
 export class UserController {
   static async signup(req: Request, res: Response) {
@@ -12,10 +13,23 @@ export class UserController {
     const user = new User();
     user.name = name;
     user.email = email;
-    user.password = encryptedPassword;
-    user.role = role;
+    user.password = password;
+    user.role = role || 'user';
 
-    const token = encrypt.generateToken({ name, email, role, id: user.id });
+    const errors = await validate(user);
+
+    if (errors.length > 0) {
+      return res.status(400).json({ message: 'Validation failed' });
+    }
+
+    user.password = encryptedPassword;
+
+    const token = encrypt.generateToken({
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      id: user.id,
+    });
 
     const userRepository = AppDataSource.getRepository(User);
 
@@ -38,5 +52,40 @@ export class UserController {
     return res
       .status(200)
       .json({ message: 'User created successfully', token });
+  }
+
+  static async signin(req: Request, res: Response) {
+    const { email, password } = req.body as Pick<
+      UserRequest,
+      'email' | 'password'
+    >;
+
+    const userRepository = AppDataSource.getRepository(User);
+
+    const userFromDB = await userRepository.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (!userFromDB)
+      return res.status(400).json({ message: 'No such user exists' });
+
+    const isValidPassword = await encrypt.comparepassword(
+      userFromDB.password,
+      password
+    );
+
+    if (!isValidPassword)
+      return res.status(400).json({ message: 'Invalid password' });
+
+    const token = encrypt.generateToken({
+      name: userFromDB.name,
+      email: userFromDB.email,
+      role: userFromDB.role,
+      id: userFromDB.id,
+    });
+
+    return res.status(200).json({ message: 'Signin was successful', token });
   }
 }
