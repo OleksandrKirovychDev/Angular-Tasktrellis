@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideMockStore } from '@ngrx/store/testing';
 import { AuthComponent } from './auth.component';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;
@@ -9,6 +10,7 @@ describe('AuthComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AuthComponent],
+      providers: [provideMockStore({}), provideAnimations()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AuthComponent);

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { IAuthResponse } from '../interfaces/auth.interface';
@@ -10,7 +10,7 @@ import { TCreateUser, TLoginUser } from '../../core/interfaces/user.interface';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   public signUp(data: TCreateUser): Observable<IAuthResponse> {
     const url = `${environment.baseUrl}/auth/signup`;
