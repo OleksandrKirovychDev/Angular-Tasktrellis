@@ -7,7 +7,8 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'home',
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.routes').then((r) => r.authRoutes),
   },
   {
     path: 'boards',
